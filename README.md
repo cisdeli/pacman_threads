@@ -6,14 +6,14 @@ A pacman with threads
 
 ### Principal
 
-- []  Menu de usuário.
+- [ ]  Menu de usuário.
 - [x] Criar Makefile.
 - [x] Desenvolver input de usuario sem dar enter e echo.
-- []  Implementar input de usuario sem dar enter e echo.
-- []  Implementar classes.
-- []  Mapa como matriz char.
-- []  Manual.
-- []  Video de apresentação.
+- [ ]  Implementar input de usuario sem dar enter e echo.
+- [ ]  Implementar classes.
+- [ ]  Mapa como matriz char.
+- [ ]  Manual.
+- [ ]  Video de apresentação.
 
 ### Caso sobre tempo
 
