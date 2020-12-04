@@ -7,16 +7,28 @@ A pacman with threads
 ### Principal
 
 -   [x] Criar Makefile.
--   [ ]  Implementar classes.
--   [ ]  Mapa como matriz char.
+-   [ ] Atualizar Makefile para suportar /src e /header.
 -   [ ]  Manual.
 -   [ ]  Video de apresentação.
 
-### Menu
+#### Mapa
+
+-   [ ]  Mapa como matriz char.
+-   [ ]  Funcionalidades gerais.
+
+#### Menu
 
 -   [x]  Tela de setar dificultade.
 -   [x]  Menu com funcionalidades.
+-   [ ]  Resetar para o menu de opções após fim do jogo.
+
+#### Game on main.cpp
+
 -   [ ]  Lógica de funcionamento de jogo.
+
+#### Fantasma
+
+-   [ ]  Funcionalidades gerais.
 
 ### Caso sobre tempo
 
