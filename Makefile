@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g
 MEMDEBUGSET = -g -fsanitize=address -fstack-protector-strong -Wall -Wextra -Werror
-LDFLAGS = -lpthread
+LDFLAGS = -lpthread -lncurses
 
 all: main.cpp Ghost.o Map.o Menu.o
 	$(CC) $(CFLAGS) main.cpp Ghost.o Map.o Menu.o -o exec $(LDLAGS)
