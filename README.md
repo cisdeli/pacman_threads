@@ -1,7 +1,8 @@
 # Projeto Final - SO
 
 A pacman with threads.  
-Referência https://github.com/j-sokol/ncursesPac
+Referência <https://github.com/j-sokol/ncursesPac>  
+Tutorial ncurses <https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHMuYlyxQl4v>
 
 ## To do list
 
