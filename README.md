@@ -1,6 +1,6 @@
 # Projeto Final - SO
 
-A pacman with threads
+A pacman with threads.  
 Referência https://github.com/j-sokol/ncursesPac
 
 ## To do list
