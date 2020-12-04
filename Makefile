@@ -1,5 +1,6 @@
 CC = g++
 CFLAGS = -Wall -g
+MEMDEBUGSET = -g -fsanitize=address -fstack-protector-strong -Wall -Wextra -Werror
 LDFLAGS = -lpthread
 
 all: main.cpp Ghost.o Map.o Menu.o
