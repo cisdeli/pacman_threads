@@ -8,8 +8,8 @@ A pacman with threads
 
 - [ ]  Menu de usuário.
 - [x] Criar Makefile.
-- [x] Desenvolver input de usuario sem dar enter e echo.
-- [ ]  Implementar input de usuario sem dar enter e echo.
+- [x] Desenvolver input de usuário sem dar enter e echo.
+- [ ]  Implementar input de usuário sem dar enter e echo.
 - [ ]  Implementar classes.
 - [ ]  Mapa como matriz char.
 - [ ]  Manual.
