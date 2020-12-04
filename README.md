@@ -6,14 +6,16 @@ A pacman with threads
 
 ### Principal
 
-- [ ]  Menu de usuário.
-- [x] Criar Makefile.
-- [x] Desenvolver input de usuário sem dar enter e echo.
-- [ ]  Implementar input de usuário sem dar enter e echo.
-- [ ]  Implementar classes.
-- [ ]  Mapa como matriz char.
-- [ ]  Manual.
-- [ ]  Video de apresentação.
+-   [x] Criar Makefile.
+-   [ ]  Implementar classes.
+-   [ ]  Mapa como matriz char.
+-   [ ]  Manual.
+-   [ ]  Video de apresentação.
+
+### Menu
+
+-   [ ]  Lógica de funcionamento de jogo.
+-   [ ]  Tela de setar dificultade.
 
 ### Caso sobre tempo
 
