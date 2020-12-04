@@ -14,8 +14,9 @@ A pacman with threads
 
 ### Menu
 
+-   [x]  Tela de setar dificultade.
+-   [x]  Menu com funcionalidades.
 -   [ ]  Lógica de funcionamento de jogo.
--   [ ]  Tela de setar dificultade.
 
 ### Caso sobre tempo
 
