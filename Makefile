@@ -5,14 +5,14 @@ LDFLAGS = -lncurses -lpthread
 
 all: main.cpp Ghost.o Map.o Menu.o Game.o
 	$(CC) $(CFLAGS) main.cpp Ghost.o Map.o Menu.o Game.o $(LDFLAGS) -o exec
-Ghost.o: Ghost.cpp
-	$(CC) Ghost.cpp -c
-Map.o: Map.cpp
-	$(CC) Map.cpp -c
-Menu.o: Menu.cpp
-	$(CC) Menu.cpp -c
-Game.o: Game.cpp
-	$(CC) Game.cpp -c
+Ghost.o: sources/Ghost.cpp
+	$(CC) sources/Ghost.cpp -c
+Map.o: sources/Map.cpp
+	$(CC) sources/Map.cpp -c
+Menu.o: sources/Menu.cpp
+	$(CC) sources/Menu.cpp -c
+Game.o: sources/Game.cpp
+	$(CC) sources/Game.cpp -c
 
 run:
 	 ./exec

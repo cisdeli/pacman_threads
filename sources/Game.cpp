@@ -1,7 +1,7 @@
-#include "Game.h"
-#include "Ghost.h"
-#include "Map.h"
-#include "Menu.h"
+#include "../headers/Game.h"
+#include "../headers/Ghost.h"
+#include "../headers/Map.h"
+#include "../headers/Menu.h"
 #include <chrono>
 #include <iostream>
 #include <ncurses.h>

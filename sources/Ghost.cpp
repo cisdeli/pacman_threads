@@ -1,4 +1,4 @@
-#include "Ghost.h"
+#include "../headers/Ghost.h"
 #include <utility>
 
 Ghost::Ghost(int x, int y) {
