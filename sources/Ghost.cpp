@@ -1,9 +1,9 @@
-#include "../headers/Ghost.h"
-#include <utility>
+#include "../headers/index.h"
+#include "../headers/indexbase.h"
 
 Ghost::Ghost(int x, int y) {
   px = x;
   py = y;
 }
 
-std::pair<int, int> Ghost::getPos() { return std::pair<int, int>{px, py}; }
+std::pair<int, int> Ghost::getPosition() { return std::pair<int, int>{px, py}; }

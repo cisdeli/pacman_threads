@@ -1,9 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
-#include "Ghost.h"
-#include "Map.h"
-#include "Menu.h"
-#include <ncurses.h>
+
+#include "index.h"
+#include "indexbase.h"
 
 class Game {
 private:
@@ -14,7 +13,13 @@ private:
 
   bool gameRunning; // Variável para verificar o status do jogo.
 public:
+  Game();
+  ~Game();
+  
   void init();
   void run();
+
+  bool getGameRunning() { return gameRunning; }
+  void setGameRunning(bool _gameRunning) { gameRunning = _gameRunning; }
 };
 #endif

@@ -1,14 +1,4 @@
-#include "headers/Ghost.h"
-#include "headers/Map.h"
-#include "headers/Menu.h"
-#include "headers/Game.h"
-#include <chrono>
-#include <iostream>
-#include <ncurses.h>
-#include <stdio.h>
-#include <string.h>
-#include <thread>
-#include <utility>
+#include "headers/index.h"
 
 /*
     Notas importantes:
@@ -18,14 +8,16 @@
 */
 
 int main(void) {
-  Game g; // Classe de teste.
-  g.init();
-  g.run();
+  Game *game = new Game(); // Classe de teste.
+  game->init();
+  game->run();
 
   /*
       Get char para esperar user input para sair do programa..
       Tirar no projeto final para sair instantaneamente.
   */
   endwin(); // Finaliza a janela
+  delete game;
+  
   return 0;
 }

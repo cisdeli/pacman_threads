@@ -1,6 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
-#include <ncurses.h>
+
+#include "index.h"
+#include "indexbase.h"
 
 class Menu {
 private:

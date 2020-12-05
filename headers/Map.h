@@ -1,8 +1,8 @@
 #ifndef MAP_H
 #define MAP_H
-#include <ncurses.h>
-#include <string>
-#include <vector>
+
+#include "index.h"
+#include "indexbase.h"
 
 class Map {
 private:
@@ -12,7 +12,7 @@ private:
   int mapX = 66, mapY = 22;
 
   unsigned int frameSpeed;
-  bool running;
+  bool gameRunning;
 
   char map[22][66] = {
       "#################################################################",
@@ -52,6 +52,7 @@ private:
   int userKey;
 
   // Ghosts
+  Ghost *ghostArray;
   int ghostsPosition[66][22];
 
   // Points
@@ -59,6 +60,7 @@ private:
 
 public:
   Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed);
+  ~Map();
   void generate();
   void configure();
   void updatePacman();

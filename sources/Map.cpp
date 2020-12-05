@@ -1,11 +1,5 @@
-#include "../headers/Map.h"
-#include <chrono>
-#include <ncurses.h>
-#include <stdlib.h>
-#include <string>
-#include <thread>
-#include <vector>
-#include <cstring>
+#include "../headers/index.h"
+#include "../headers/indexbase.h"
 
 Map::Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed) {
   // Passa as dimensões e a janela para desenhar nela.
@@ -14,6 +8,10 @@ Map::Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed) {
   xMax = xWin;
   frameSpeed = _frameSpeed;
   Map::configure();
+}
+
+Map::~Map() {
+  delete ghostArray;
 }
 
 int Map::isWallH(int x, int y) { return map[x][y] == '#' ? 1 : 0; }
@@ -36,6 +34,7 @@ void Map::print(int c, int y, int x) {
 }
 
 void Map::configure() {
+  gameRunning = true;
   pacmanX = 3;
   pacmanY = 1;
 
@@ -43,10 +42,8 @@ void Map::configure() {
   points[pacmanX][pacmanY] = 1;
 
   /// Configure Ghosts here... ///
+  ghostArray = new Ghost(4, 4);
   memset(ghostsPosition, -1 , sizeof ghostsPosition);
-  // Alocar array de fantasmas na memoria....
-  ///////////////////////////////
-  running = true;
 }
 
 void Map::generate() {
@@ -126,10 +123,11 @@ void Map::updateGhosts() {
 
 void Map::run() {
   const auto wait_duration = std::chrono::milliseconds(frameSpeed);
-  while (running) {
+  while (gameRunning) {
     generate();
     updateGhosts();
     updatePacman();
+
     std::this_thread::sleep_for(wait_duration);
     wrefresh(gameWin);
   }

@@ -1,14 +1,12 @@
-#include "../headers/Game.h"
-#include "../headers/Ghost.h"
-#include "../headers/Map.h"
-#include "../headers/Menu.h"
-#include <chrono>
-#include <iostream>
-#include <ncurses.h>
-#include <stdio.h>
-#include <string.h>
-#include <thread>
-#include <utility>
+#include "../headers/index.h"
+#include "../headers/indexbase.h"
+
+Game::Game() {}
+
+Game::~Game() {
+  delete menu;
+  delete map;
+}
 
 // Método de inicialização.
 void Game::init() {

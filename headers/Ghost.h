@@ -1,7 +1,8 @@
 #ifndef GHOST_H
 #define GHOST_H
 
-#include <utility>
+#include "index.h"
+#include "indexbase.h"
 
 class Ghost {
 private:
@@ -9,7 +10,8 @@ private:
 
 public:
   Ghost(int x, int y);
-  std::pair<int, int> getPos();
+  ~Ghost();
+  std::pair<int, int> getPosition();
 };
 
 #endif

@@ -1,7 +1,5 @@
-#include "../headers/Menu.h"
-#include <ncurses.h>
-#include <string>
-#include <vector>
+#include "../headers/index.h"
+#include "../headers/indexbase.h"
 
 Menu::Menu(WINDOW *win, int yWin, int xWin) {
   // Passa as dimensões e a janela para desenhar nela.
