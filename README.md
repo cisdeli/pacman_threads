@@ -19,6 +19,7 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 -   [x]  Mapa como matriz char.
 -   [x]  Lógica em para mover fantasmas.
 -   [x]  Lógica para pacman comer pontos.
+-   [ ]  Cor no pacman e mudar char que o representa.
 -   [ ]  Incluir placar de pontos.
 
 #### Menu
@@ -34,11 +35,13 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 #### Fantasma
 
 -   [ ]  Funcionalidades gerais.
+-   [ ]  Uso de semáforos.
 
 ### Caso sobre tempo
 
-1.  Implementar mapa real com obstaculos.
-2.  Dots e power ups
+1.  ~Implementar mapa real com obstaculos~.
+2.  ~Dots.~   
+3.  Power Ups.
 
 ## Installation/Manual
 
