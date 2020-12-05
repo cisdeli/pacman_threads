@@ -6,4 +6,6 @@ Ghost::Ghost(int x, int y) {
   py = y;
 }
 
+Ghost::~Ghost(){}
+
 std::pair<int, int> Ghost::getPosition() { return std::pair<int, int>{px, py}; }

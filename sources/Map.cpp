@@ -10,9 +10,7 @@ Map::Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed) {
   Map::configure();
 }
 
-Map::~Map() {
-  delete ghostArray;
-}
+Map::~Map() { delete ghostArray; }
 
 int Map::isWallH(int x, int y) { return map[x][y] == '#' ? 1 : 0; }
 int Map::isWallX(int x, int y) { return map[x][y] == 'x' ? 1 : 0; }
@@ -38,12 +36,12 @@ void Map::configure() {
   pacmanX = 3;
   pacmanY = 1;
 
-  memset(points, -1 , sizeof points);
+  memset(points, -1, sizeof points);
   points[pacmanX][pacmanY] = 1;
 
   /// Configure Ghosts here... ///
   ghostArray = new Ghost(4, 4);
-  memset(ghostsPosition, -1 , sizeof ghostsPosition);
+  memset(ghostsPosition, -1, sizeof ghostsPosition);
 }
 
 void Map::generate() {
@@ -51,8 +49,8 @@ void Map::generate() {
     for (int j = 0; j < mapY; j++) {
       if (j == pacmanY && i == pacmanX)
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'@');
-        
-      else if(ghostsPosition[i][j] == 1)
+
+      else if (ghostsPosition[i][j] == 1)
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'$');
 
       else if (Map::isWallH(j, i))
@@ -62,7 +60,7 @@ void Map::generate() {
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
 
       else if (Map::isDot(j, i)) {
-        if(points[i][j] == 1) {
+        if (points[i][j] == 1) {
           mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
         } else {
           mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');

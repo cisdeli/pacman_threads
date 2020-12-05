@@ -41,10 +41,8 @@ void Game::run() {
       gameRunning = true; // Usuário selecionou Play.
   }
 
-  /*
-  Limpa a tela para poder desenhar o mapa.
-  Ver drawTitle em Menu.cpp como referência.
-  */
+  // Limpa a tela para poder desenhar o mapa.
+
   werase(gameWin);
   box(gameWin, 0, 0);
   wrefresh(gameWin);
