@@ -9,7 +9,7 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 ### Principal
 
 -   [x] Criar Makefile.
--   [ ] Atualizar Makefile para suportar /src e /header.
+-   [x] Atualizar Makefile para suportar /src e /header.
 -   [ ] Tutorial de instalação(incluir instalação da ncurses);
 -   [ ] Manual.
 -   [ ] Video de apresentação.
