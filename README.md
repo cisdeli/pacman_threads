@@ -1,8 +1,8 @@
 # Projeto Final - SO
 
 A pacman with threads.  
-Referência <https://github.com/j-sokol/ncursesPac>  
-Tutorial ncurses <https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHMuYlyxQl4v>
+Referência https://github.com/j-sokol/ncursesPac  
+Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHMuYlyxQl4v
 
 ## To do list
 
@@ -15,8 +15,9 @@ Tutorial ncurses <https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtH
 
 #### Mapa
 
--   [ ]  Mapa como matriz char.
--   [ ]  Funcionalidades gerais.
+-   [x]  Mapa como matriz char.
+-   [ ]  Lógica em para mover fantasmas.
+-   [ ]  Lógica para pacman comer pontos.
 
 #### Menu
 
@@ -24,7 +25,7 @@ Tutorial ncurses <https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtH
 -   [x]  Menu com funcionalidades.
 -   [ ]  Resetar para o menu de opções após fim do jogo.
 
-#### Game on main.cpp
+#### Game
 
 -   [ ]  Lógica de funcionamento de jogo.
 
