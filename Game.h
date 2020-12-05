@@ -6,6 +6,7 @@
 #include <ncurses.h>
 
 class Game {
+private:
   int yMax, xMax;  // Tamanho maximo da janela.
   WINDOW *gameWin; // Ponteiro para a janela.
   Menu *menu;      // Menu.

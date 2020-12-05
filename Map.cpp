@@ -39,6 +39,9 @@ void Map::configure() {
   pacmanX = 3;
   pacmanY = 1;
 
+  memset(points, -1 , sizeof points);
+  points[pacmanX][pacmanY] = 1;
+
   /// Configure Ghosts here... ///
   memset(ghostsPosition, -1 , sizeof ghostsPosition);
   // Alocar array de fantasmas na memoria....
@@ -51,7 +54,7 @@ void Map::generate() {
     for (int j = 0; j < mapY; j++) {
       if (j == pacmanY && i == pacmanX)
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'@');
-
+        
       else if(ghostsPosition[i][j] == 1)
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'$');
 
@@ -61,8 +64,13 @@ void Map::generate() {
       else if (Map::isWallX(j, i))
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
 
-      else if (Map::isDot(j, i))
-        mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');
+      else if (Map::isDot(j, i)) {
+        if(points[i][j] == 1) {
+          mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
+        } else {
+          mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');
+        }
+      }
 
       else if (Map::isEmpty(j, i))
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
@@ -80,20 +88,28 @@ void Map::readUserKey() {
 void Map::updatePacman() {
   switch (userKey) {
   case KEY_UP:
-    if (!isWall(pacmanY - 1 % mapY, pacmanX))
+    if (!isWall(pacmanY - 1 % mapY, pacmanX)) {
       pacmanY -= 1 % mapY;
+      points[pacmanX][pacmanY] = 1;
+    }
     break;
   case KEY_DOWN:
-    if (!isWall(pacmanY + 1 % mapY, pacmanX))
+    if (!isWall(pacmanY + 1 % mapY, pacmanX)) {
       pacmanY += 1 % mapY;
+      points[pacmanX][pacmanY] = 1;
+    }
     break;
   case KEY_RIGHT:
-    if (!isWall(pacmanY, pacmanX + 1 % mapX))
+    if (!isWall(pacmanY, pacmanX + 1 % mapX)) {
       pacmanX += 1 % mapX;
+      points[pacmanX][pacmanY] = 1;
+    }
     break;
   case KEY_LEFT:
-    if (!isWall(pacmanY, pacmanX - 1 % mapX))
+    if (!isWall(pacmanY, pacmanX - 1 % mapX)) {
       pacmanX -= 1 % mapX;
+      points[pacmanX][pacmanY] = 1;
+    }
     break;
   }
 }

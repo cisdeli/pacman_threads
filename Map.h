@@ -54,6 +54,9 @@ private:
   // Ghosts
   int ghostsPosition[66][22];
 
+  // Points
+  int points[66][22];
+
 public:
   Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed);
   void generate();

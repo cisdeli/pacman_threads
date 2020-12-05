@@ -4,6 +4,7 @@
 #include <utility>
 
 class Ghost {
+private:
   int px, py;
 
 public:

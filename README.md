@@ -10,14 +10,16 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 
 -   [x] Criar Makefile.
 -   [ ] Atualizar Makefile para suportar /src e /header.
--   [ ]  Manual.
--   [ ]  Video de apresentação.
+-   [ ] Tutorial de instalação(incluir instalação da ncurses);
+-   [ ] Manual.
+-   [ ] Video de apresentação.
 
 #### Mapa
 
 -   [x]  Mapa como matriz char.
--   [ ]  Lógica em para mover fantasmas.
--   [ ]  Lógica para pacman comer pontos.
+-   [x]  Lógica em para mover fantasmas.
+-   [x]  Lógica para pacman comer pontos.
+-   [ ]  Incluir placar de pontos.
 
 #### Menu
 

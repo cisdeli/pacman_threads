@@ -10,8 +10,6 @@
 #include <thread>
 #include <utility>
 
-
-
 /*
     Notas importantes:
         Ver o video na playlist sobre quando e pq dar refresh/wrefresh.

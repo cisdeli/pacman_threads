@@ -3,6 +3,7 @@
 #include <ncurses.h>
 
 class Menu {
+private:
   WINDOW *gameWin;
   int yMax, xMax;
 
