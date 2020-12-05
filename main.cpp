@@ -10,6 +10,7 @@
 #include <utility>
 
 
+
 /*
     Notas importantes:
         Ver o video na playlist sobre quando e pq dar refresh/wrefresh.
@@ -21,6 +22,7 @@ class Game {
   int yMax, xMax;  // Tamanho maximo da janela.
   WINDOW *gameWin; // Ponteiro para a janela.
   Menu *menu; // Menu.
+  Map *map;
 
   bool gameRunning = false; // Variável para verificar o status do jogo.
 
@@ -36,6 +38,7 @@ public:
     gameWin = newwin(yMax, xMax, 0, 0);
     keypad(gameWin, true); // arrow keys input;
     menu = new Menu(gameWin, yMax, xMax);
+    map = new Map(gameWin, yMax, xMax, 200);
 
     // Cria caixa com a borda e atualiza a tela.
     box(gameWin, 0, 0);
@@ -57,24 +60,26 @@ public:
         gameRunning = true; // Usuário selecionou Play.
     }
 
-    while (gameRunning) {
-      /*
-          Limpa a tela para poder desenhar o mapa.
-          Ver drawTitle em Menu.cpp como referência.
-      */
-      werase(gameWin);
-      box(gameWin, 0, 0);
-      wrefresh(gameWin);
+    /*
+    Limpa a tela para poder desenhar o mapa.
+    Ver drawTitle em Menu.cpp como referência.
+    */
+    werase(gameWin);
+    box(gameWin, 0, 0);
+    wrefresh(gameWin);
 
-      // Lógica do jogo aqui?
-      mvwprintw(gameWin, 10, 10, "Jogo aqui hehe");
-      std::string diff[3] = {"Easy", "Medium", "Hard"};
-      mvwprintw(gameWin, 11, 10, "Dificuldade: %s", diff[difficulty].c_str());
-      wrefresh(gameWin);
-      //
-      getch();
-      break;
+    // Display dificuldade.
+    std::string diff[3] = {"Easy", "Medium", "Hard"};
+    mvwprintw(gameWin, 0, 1, "Dificuldade:{%s}", diff[difficulty].c_str());
+    wrefresh(gameWin);
+
+    // Lógica do jogo aqui.
+    std::thread update_thread(&Map::run, map);
+    while (gameRunning) {
+      map->readUserKey();
     }
+    update_thread.join();
+    //
   }
 };
 
