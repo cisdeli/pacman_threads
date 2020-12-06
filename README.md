@@ -20,7 +20,7 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 -   [x]  Lógica em para mover fantasmas.
 -   [x]  Lógica para pacman comer pontos.
 -   [x]  Cor no pacman e mudar char que o representa.
--   [ ]  Incluir placar de pontos.
+-   [x]  Incluir placar de pontos.
 
 #### Menu
 
