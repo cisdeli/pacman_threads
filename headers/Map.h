@@ -38,10 +38,16 @@ private:
       "##x...........................................................x##",
       "#################################################################"};
 
+  void print(int c, int y, int x);
+  void printPac(int c, int y, int x);
+
+  void showScore();
+
   // Pacman
   int pacmanX;
   int pacmanY;
   int userKey;
+  char pacmanCh;
 
   // Ghosts
   Ghost *ghost1;
@@ -50,6 +56,7 @@ private:
 
   // Points
   int points[66][22];
+  int score;
 
 public:
   Map();
@@ -63,7 +70,6 @@ public:
   int isDot(int x, int y);
   int isStar(int x, int y);
   int isGhost(int x, int y);
-  void print(int c, int y, int x);
 
   void generate();
   void configure();
