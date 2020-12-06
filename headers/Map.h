@@ -47,6 +47,8 @@ private:
   void print(int c, int y, int x);
   void printPac(int c, int y, int x);
 
+  void showScore();
+
   // Pacman
   int pacmanX;
   int pacmanY;
@@ -59,6 +61,7 @@ private:
 
   // Points
   int points[66][22];
+  int score;
 
 public:
   Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed);
