@@ -60,11 +60,11 @@ void Map::generate() {
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
 
       else if (Map::isDot(j, i)) {
-        if (points[i][j] == 1) {
+        if (points[i][j] == 1)
           mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
-        } else {
+        else
           mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');
-        }
+
       }
 
       else if (Map::isEmpty(j, i))
@@ -72,7 +72,10 @@ void Map::generate() {
 
       // Caso sobre tempo implementar powerup
       else if (Map::isStar(j, i))
-        mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');
+        if (points[i][j] == 1)
+          mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
+        else
+          mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');
     }
 }
 
