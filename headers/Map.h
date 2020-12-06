@@ -45,11 +45,13 @@ private:
   int isDot(int x, int y);
   int isStar(int x, int y);
   void print(int c, int y, int x);
+  void printPac(int c, int y, int x);
 
   // Pacman
   int pacmanX;
   int pacmanY;
   int userKey;
+  char pacmanCh;
 
   // Ghosts
   Ghost *ghostArray;

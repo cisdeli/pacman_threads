@@ -31,10 +31,21 @@ void Map::print(int c, int y, int x) {
   wattroff(gameWin, A_BOLD);
 }
 
+void Map::printPac(int c, int y, int x) {
+    start_color();
+    init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+    wattron(gameWin, A_BOLD);
+    wattron(gameWin, COLOR_PAIR(2));
+    mvwaddch(gameWin, y, x, c);
+    wattroff(gameWin, COLOR_PAIR(2));
+    wattroff(gameWin, A_BOLD);
+}
+
 void Map::configure() {
   gameRunning = true;
   pacmanX = 3;
   pacmanY = 1;
+  pacmanCh = '<';
 
   memset(points, -1, sizeof points);
   points[pacmanX][pacmanY] = 1;
@@ -48,7 +59,7 @@ void Map::generate() {
   for (int i = 0; i < mapX; i++)
     for (int j = 0; j < mapY; j++) {
       if (j == pacmanY && i == pacmanX)
-        mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'@');
+        Map::printPac((int)pacmanCh, j + 8, i + xMax / 3 - 8);
 
       else if (ghostsPosition[i][j] == 1)
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'$');
@@ -89,24 +100,28 @@ void Map::updatePacman() {
     if (!isWall(pacmanY - 1 % mapY, pacmanX)) {
       pacmanY -= 1 % mapY;
       points[pacmanX][pacmanY] = 1;
+      pacmanCh = 'v';
     }
     break;
   case KEY_DOWN:
     if (!isWall(pacmanY + 1 % mapY, pacmanX)) {
       pacmanY += 1 % mapY;
       points[pacmanX][pacmanY] = 1;
+      pacmanCh = '^';
     }
     break;
   case KEY_RIGHT:
     if (!isWall(pacmanY, pacmanX + 1 % mapX)) {
       pacmanX += 1 % mapX;
       points[pacmanX][pacmanY] = 1;
+      pacmanCh = '<';
     }
     break;
   case KEY_LEFT:
     if (!isWall(pacmanY, pacmanX - 1 % mapX)) {
       pacmanX -= 1 % mapX;
       points[pacmanX][pacmanY] = 1;
+      pacmanCh = '>';
     }
     break;
   }
