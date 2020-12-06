@@ -19,7 +19,7 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 -   [x]  Mapa como matriz char.
 -   [x]  Lógica em para mover fantasmas.
 -   [x]  Lógica para pacman comer pontos.
--   [ ]  Cor no pacman e mudar char que o representa.
+-   [x]  Cor no pacman e mudar char que o representa.
 -   [ ]  Incluir placar de pontos.
 
 #### Menu
