@@ -1,6 +1,8 @@
 #include "../headers/index.h"
 #include "../headers/indexbase.h"
 
+Map::Map() {}
+
 Map::Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed) {
   // Passa as dimensões e a janela para desenhar nela.
   gameWin = win;
@@ -10,16 +12,18 @@ Map::Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed) {
   Map::configure();
 }
 
-Map::~Map() { delete ghostArray; }
+Map::~Map() {
+   delete ghost1; 
+   delete ghost2;
+}
 
 int Map::isWallH(int x, int y) { return map[x][y] == '#' ? 1 : 0; }
 int Map::isWallX(int x, int y) { return map[x][y] == 'x' ? 1 : 0; }
 int Map::isEmpty(int x, int y) { return map[x][y] == ' ' ? 1 : 0; }
 int Map::isDot(int x, int y) { return map[x][y] == '.' ? 1 : 0; }
 int Map::isStar(int x, int y) { return map[x][y] == '*' ? 1 : 0; }
-int Map::isWall(int x, int y) {
-  return Map::isWallH(x, y) || Map::isWallX(x, y);
-}
+int Map::isWall(int x, int y) { return Map::isWallH(x, y) || Map::isWallX(x, y); }
+int Map::isGhost(int x, int y) { return map[x][y] == '$'; }
 
 void Map::print(int c, int y, int x) {
   start_color();
@@ -40,8 +44,13 @@ void Map::configure() {
   points[pacmanX][pacmanY] = 1;
 
   /// Configure Ghosts here... ///
-  ghostArray = new Ghost(4, 4);
+
+  ghost1 = new Ghost(10, 4, mapX, mapY);
+  ghost2 = new Ghost(61, 3, mapX, mapY);
+
   memset(ghostsPosition, -1, sizeof ghostsPosition);
+  ghostsPosition[10][4]   = 1;
+  ghostsPosition[3][61]  = 1;
 }
 
 void Map::generate() {
@@ -113,13 +122,18 @@ void Map::updatePacman() {
 }
 
 void Map::updateGhosts() {
-  /// Implementar quando tiver a classe Ghost
-  // for(int i = 0; i < ghostArray.size(); i++) {
-  //   int x = ghostArray[i]->getPositionX();
-  //   int y = ghostArray[i]->getPositionY();
+  std::thread moveGhost1(&Ghost::updatePosition, ghost1);
+  std::thread moveGhost2(&Ghost::updatePosition, ghost2);
 
-  //   ghostsPosition[x][y] = 1;
-  // }
+  std::pair<int, int> ghostPos1 = ghost1->getPosition();
+  std::pair<int, int> ghostPos2 = ghost2->getPosition();
+
+  memset(ghostsPosition, -1, sizeof ghostsPosition);
+  ghostsPosition[ghostPos1.first][ghostPos1.second] = 1;
+  ghostsPosition[ghostPos2.first][ghostPos2.second] = 1;
+
+  moveGhost1.join();
+  moveGhost2.join();
 }
 
 void Map::run() {

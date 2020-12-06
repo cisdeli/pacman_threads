@@ -6,12 +6,16 @@
 
 class Ghost {
 private:
-  int px, py;
+  int x, y;
+  int maxX, maxY;
+  Map *map;
 
 public:
-  Ghost(int x, int y);
+  Ghost(int x, int y, int maxX, int maxY);
   ~Ghost();
+
   std::pair<int, int> getPosition();
+  void updatePosition();
 };
 
 #endif
