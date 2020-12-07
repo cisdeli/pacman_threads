@@ -10,6 +10,7 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 
 -   [x] Criar Makefile.
 -   [x] Atualizar Makefile para suportar /src e /header.
+-   [ ] Generalizar métodos de print com ncurses.
 -   [ ] Tutorial de instalação(incluir instalação da ncurses);
 -   [ ] Manual.
 -   [ ] Video de apresentação.
@@ -21,6 +22,8 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 -   [x]  Lógica para pacman comer pontos.
 -   [x]  Cor no pacman e mudar char que o representa.
 -   [x]  Incluir placar de pontos.
+-   [ ]  "Limpar" classe Map.
+
 
 #### Menu
 
@@ -30,12 +33,15 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 
 #### Game
 
--   [ ]  Lógica de funcionamento de jogo.
+-   [x]  Lógica de funcionamento de jogo.
+-   [ ]  Implementar dificuldade.
 
 #### Fantasma
 
--   [ ]  Funcionalidades gerais.
--   [ ]  Uso de semáforos.
+-   [x]  Funcionalidades gerais.
+-   [x]  Uso de semáforos.
+-   [ ]  Lógica de colisão com pacman.
+-   [ ]  Colorir fantasmas individualmente.
 
 ### Caso sobre tempo
 
