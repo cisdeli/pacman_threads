@@ -119,6 +119,12 @@ void Map::readUserKey() {
     userKey = wgetch(gameWin); // Pega o input do usuario.
 }
 
+bool Map::isPacDead() {
+  // As vezes a colisao n pega.
+  return ghostsPosition[pacmanX][pacmanY];
+  // return checkGhostsColision(pacmanX, pacmanY);
+}
+
 void Map::updatePacman() {
   switch (userKey) {
   case KEY_UP:
@@ -249,10 +255,10 @@ void Map::run() {
     updatePacman();
     showScore();
 
+    if (score == 431 || isPacDead()) // Max points ou pac morreu.
+      gameRunning = false;
     std::this_thread::sleep_for(wait_duration);
     wrefresh(gameWin);
-    if (score == 431) // Max points
-      gameRunning = false;
   }
   Map::showEndGame();
   wrefresh(gameWin);

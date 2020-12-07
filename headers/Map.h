@@ -71,6 +71,7 @@ public:
   bool isStar(int x, int y);
   bool isGhost(int x, int y);
 
+  bool isPacDead();
   bool getGameState();
 
   void showEndGame();
