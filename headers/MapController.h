@@ -50,6 +50,7 @@ public:
   void configure();
   void updatePacman();
   bool checkGhostsColision(int x, int y);
+  bool canMove(int x, int y);
   void updateGPosition(int id);
   void updateGhosts();
   void readUserKey();

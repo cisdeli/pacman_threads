@@ -134,7 +134,7 @@ void MapController::updatePacman() {
 
 bool MapController::checkGhostsColision(int x, int y) {
   for (int i = 0; i < ghostsCurrPos.size(); i++) {
-    if (ghostsCurrPos[i].first == x && ghostsCurrPos[i].second == y) {  // Colision to another ghost
+    if (ghostsCurrPos[i].first == x && ghostsCurrPos[i].second == y) {  // Colision with another ghost
       return true;
     } else if(ghostsCurrPos[i].first == pacmanX && ghostsCurrPos[i].second == pacmanY) {  // Colision with pacman
       gameRunning = false;
@@ -142,6 +142,10 @@ bool MapController::checkGhostsColision(int x, int y) {
   }
 
   return false;
+}
+
+bool MapController::canMove(int x, int y) {
+  return !map->isWall(y, x) && !checkGhostsColision(x, y);
 }
 
 void MapController::updateGPosition(int id) {
@@ -155,22 +159,22 @@ void MapController::updateGPosition(int id) {
   while (!moved) {
     int randNumber = rand() % 100;
     if (randNumber >= 0 && randNumber < 25) { // Move UP
-      if (!map->isWall(y - 1 % mapY, x) && !checkGhostsColision(x, y - 1 % mapY)) {
+      if (canMove(x, y - 1 % mapY)) {
         y -= 1 % mapY;
         moved = true;
       }
     } else if (randNumber >= 25 && randNumber < 50) { // Move DOWN
-      if (!map->isWall(y + 1 % mapY, x) && !checkGhostsColision(x, y + 1 % mapY)) {
+      if (canMove(x, y + 1 % mapY)) {
         y += 1 % mapY;
         moved = true;
       }
     } else if (randNumber >= 50 && randNumber < 75) { // Move RIGHT
-      if (!map->isWall(y, x + 1 % mapX) && !checkGhostsColision(x + 1 % mapX, y)) {
+      if (canMove(x + 1 % mapX, y)) {
         x += 1 % mapX;
         moved = true;
       }
     } else {  // Move LEFT
-      if (!map->isWall(y, x - 1 % mapX) && !checkGhostsColision(x - 1 % mapX, y)) {
+      if (canMove(x - 1 % mapX, y)) {
         x -= 1 % mapX;
         moved = true;
       }
