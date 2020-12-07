@@ -64,12 +64,12 @@ void Map::configure() {
   memset(ghostsPosition, 0, sizeof ghostsPosition);
   ghostsCurrPos.push_back({10, 4});
   ghostsCurrPos.push_back({61, 3});
-  // ghostsCurrPos.push_back({4 , 20}); // Arrumar para 4 fantasmas(tava bugando)
-  // ghostsCurrPos.push_back({30, 15});
+  ghostsCurrPos.push_back({10 , 20});
+  ghostsCurrPos.push_back({30, 15});
   ghostsPosition[4][10] = 1;
   ghostsPosition[3][61] = 1;
-  // ghostsPosition[20][4] = 1;
-  // ghostsPosition[15][30] = 1;
+  ghostsPosition[20][10] = 1;
+  ghostsPosition[15][30] = 1;
 
   // Semaphore config
   sem_init(&ghostMutex, 0, 1);
@@ -192,7 +192,7 @@ void Map::updateGPosition(int id) {
           moved = true;
         }
     } else {
-        if (!isWall(y, x + 1 % mapX) && !checkGhostsColision(x-1%mapX, y)) {
+        if (!isWall(y, x - 1 % mapX) && !checkGhostsColision(x-1%mapX, y)) {
           x -= 1 % mapX;
           moved = true;
         }
@@ -211,13 +211,13 @@ void Map::updateGhosts() {
 
   std::thread ghost1(&Map::updateGPosition, this, 0);
   std::thread ghost2(&Map::updateGPosition, this, 1);
-  // std::thread ghost3(&Map::updateGPosition, this, 2);
-  // std::thread ghost4(&Map::updateGPosition, this, 3);
+  std::thread ghost3(&Map::updateGPosition, this, 2);
+  std::thread ghost4(&Map::updateGPosition, this, 3);
 
   ghost1.join();
   ghost2.join();
-  // ghost3.join();
-  // ghost4.join();
+  ghost3.join();
+  ghost4.join();
 }
 
 void Map::run() {
