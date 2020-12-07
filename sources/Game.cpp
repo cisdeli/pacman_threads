@@ -5,7 +5,7 @@ Game::Game() {}
 
 Game::~Game() {
   delete menu;
-  // delete map;
+  delete map;
 }
 
 // Método de inicialização.
@@ -19,7 +19,7 @@ void Game::init() {
   gameWin = newwin(yMax, xMax, 0, 0);
   keypad(gameWin, true); // arrow keys input;
   menu = new Menu(gameWin, yMax, xMax);
-  map = new Map(gameWin, yMax, xMax, 200);
+  map = new MapController(gameWin, yMax, xMax, 200);
 
   // Cria caixa com a borda e atualiza a tela.
   box(gameWin, 0, 0);
@@ -59,7 +59,7 @@ void Game::run() {
   wrefresh(gameWin);
 
   // Lógica do jogo aqui.
-  std::thread update_thread(&Map::run, map);
+  std::thread update_thread(&MapController::run, map);
   while (gameRunning) {
     gameRunning = map->getGameState();
     map->readUserKey();

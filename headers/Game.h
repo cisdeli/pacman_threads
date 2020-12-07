@@ -9,7 +9,7 @@ private:
   int yMax, xMax;  // Tamanho maximo da janela.
   WINDOW *gameWin; // Ponteiro para a janela.
   Menu *menu;      // Menu.
-  Map *map;
+  MapController *map;
 
   bool gameRunning; // Variável para verificar o status do jogo.
 public:

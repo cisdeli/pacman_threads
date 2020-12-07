@@ -13,6 +13,5 @@ int main(void) {
 
   endwin(); // Finaliza a janela
   delete game;
-
   return 0;
 }

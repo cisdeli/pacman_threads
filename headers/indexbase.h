@@ -1,9 +1,9 @@
 #ifndef INDEXBASE_H
 #define INDEXBASE_H
 
-class Ghost;
 class Game;
 class Map;
+class MapController;
 class Menu;
 
 #endif

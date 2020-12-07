@@ -1,7 +1,7 @@
 // Project headers
 #include "Game.h"
-#include "Ghost.h"
 #include "Map.h"
+#include "MapController.h"
 #include "Menu.h"
 
 // Aux headers
