@@ -29,11 +29,12 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 
 -   [x]  Tela de setar dificultade.
 -   [x]  Menu com funcionalidades.
--   [ ]  Resetar para o menu de opções após fim do jogo.
+-   [x]  Resetar para o menu de opções após fim do jogo.
 
 #### Game
 
 -   [x]  Lógica de funcionamento de jogo.
+-   [x]  Mostrar tela de fim de jogo.
 -   [ ]  Implementar dificuldade.
 
 #### Fantasma
