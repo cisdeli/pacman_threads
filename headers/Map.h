@@ -50,7 +50,7 @@ private:
   char pacmanCh;
 
   // Ghosts
-  std::vector<std::pair<int, int> > ghostsCurrPos;
+  std::vector<std::pair<int, int>> ghostsCurrPos;
   int ghostsPosition[66][22];
   sem_t ghostMutex;
 
@@ -70,6 +70,10 @@ public:
   bool isDot(int x, int y);
   bool isStar(int x, int y);
   bool isGhost(int x, int y);
+
+  bool getGameState();
+
+  void showEndGame();
 
   void generate();
   void configure();

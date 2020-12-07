@@ -15,10 +15,10 @@ private:
 public:
   Game();
   ~Game();
-  
+
   void init();
   void run();
-
+  void clearScr();
   bool getGameRunning() { return gameRunning; }
   void setGameRunning(bool _gameRunning) { gameRunning = _gameRunning; }
 };

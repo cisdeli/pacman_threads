@@ -27,7 +27,15 @@ void Game::init() {
   wrefresh(gameWin);
 }
 
+void Game::clearScr() {
+  werase(gameWin);
+  box(gameWin, 0, 0);
+  wrefresh(gameWin);
+}
+
 void Game::run() {
+  Game::init();
+
   menu->drawTitle();
   int op = menu->userOptions();
   int difficulty = 0; // Dificuldate padrao: facil;
@@ -42,10 +50,7 @@ void Game::run() {
   }
 
   // Limpa a tela para poder desenhar o mapa.
-
-  werase(gameWin);
-  box(gameWin, 0, 0);
-  wrefresh(gameWin);
+  Game::clearScr();
 
   // Display dificuldade.
   std::string diff[3] = {"Easy", "Medium", "Hard"};
@@ -56,8 +61,13 @@ void Game::run() {
   // Lógica do jogo aqui.
   std::thread update_thread(&Map::run, map);
   while (gameRunning) {
+    gameRunning = map->getGameState();
     map->readUserKey();
   }
   update_thread.join();
   //
+
+  Game::clearScr();
+  Game::run();
+  // getch();
 }

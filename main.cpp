@@ -9,15 +9,10 @@
 
 int main(void) {
   Game *game = new Game(); // Classe de teste.
-  game->init();
   game->run();
 
-  /*
-      Get char para esperar user input para sair do programa..
-      Tirar no projeto final para sair instantaneamente.
-  */
   endwin(); // Finaliza a janela
   delete game;
-  
+
   return 0;
 }
