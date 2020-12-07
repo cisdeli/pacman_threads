@@ -12,18 +12,15 @@ Map::Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed) {
   Map::configure();
 }
 
-Map::~Map() {
-   delete ghost1; 
-   delete ghost2;
-}
+Map::~Map() {}
 
-int Map::isWallH(int x, int y) { return map[x][y] == '#' ? 1 : 0; }
-int Map::isWallX(int x, int y) { return map[x][y] == 'x' ? 1 : 0; }
-int Map::isEmpty(int x, int y) { return map[x][y] == ' ' ? 1 : 0; }
-int Map::isDot(int x, int y) { return map[x][y] == '.' ? 1 : 0; }
-int Map::isStar(int x, int y) { return map[x][y] == '*' ? 1 : 0; }
-int Map::isWall(int x, int y) { return Map::isWallH(x, y) || Map::isWallX(x, y); }
-int Map::isGhost(int x, int y) { return map[x][y] == '$'; }
+bool Map::isWallH(int x, int y) { return map[x][y] == '#'; }
+bool Map::isWallX(int x, int y) { return map[x][y] == 'x'; }
+bool Map::isEmpty(int x, int y) { return map[x][y] == ' '; }
+bool Map::isDot(int x, int y) { return map[x][y] == '.'; }
+bool Map::isStar(int x, int y) { return map[x][y] == '*'; }
+bool Map::isWall(int x, int y) { return Map::isWallH(x, y) || Map::isWallX(x, y); }
+bool Map::isGhost(int x, int y) { return map[x][y] == '$'; }
 
 void Map::print(int c, int y, int x) {
   start_color();
@@ -50,23 +47,32 @@ void Map::showScore() {
 }
 
 void Map::configure() {
+  // Configure game
   score = 0;
   gameRunning = true;
+
+  // Configure pacman
   pacmanX = 3;
   pacmanY = 1;
   pacmanCh = '<';
 
+  // Configure points
   memset(points, -1, sizeof points);
   points[pacmanX][pacmanY] = 1;
 
-  /// Configure Ghosts here... ///
+  /// Configure Ghosts 
+  memset(ghostsPosition, 0, sizeof ghostsPosition);
+  ghostsCurrPos.push_back({10, 4});
+  ghostsCurrPos.push_back({61, 3});
+  // ghostsCurrPos.push_back({4 , 20}); // Arrumar para 4 fantasmas(tava bugando)
+  // ghostsCurrPos.push_back({30, 15});
+  ghostsPosition[4][10] = 1;
+  ghostsPosition[3][61] = 1;
+  // ghostsPosition[20][4] = 1;
+  // ghostsPosition[15][30] = 1;
 
-  ghost1 = new Ghost(10, 4, mapX, mapY);
-  ghost2 = new Ghost(61, 3, mapX, mapY);
-
-  memset(ghostsPosition, -1, sizeof ghostsPosition);
-  ghostsPosition[10][4]   = 1;
-  ghostsPosition[3][61]  = 1;
+  // Semaphore config
+  sem_init(&ghostMutex, 0, 1);
 }
 
 void Map::generate() {
@@ -149,19 +155,69 @@ void Map::updatePacman() {
   }
 }
 
+bool Map::checkGhostsColision(int x, int y) {
+  for(int i = 0; i < ghostsCurrPos.size(); i++) {
+    if(ghostsCurrPos[i].first == x &&
+       ghostsCurrPos[i].second == y) {
+      return true;
+    }
+  } 
+
+  return false;
+}
+
+void Map::updateGPosition(int id) {
+  sem_wait(&ghostMutex);
+
+  int x = ghostsCurrPos[id].first;
+  int y = ghostsCurrPos[id].second; 
+
+  bool moved = false;
+
+  while(!moved) {
+    int randNumber = rand()%100;
+    if(randNumber >= 0 && randNumber < 25) {
+        if (!isWall(y - 1 % mapY, x) && !checkGhostsColision(x, y-1%mapY)) {
+          y -= 1 % mapY;
+          moved = true;
+        }
+    } else if(randNumber >= 25 && randNumber < 50) {
+        if (!isWall(y + 1 % mapY, x) && !checkGhostsColision(x, y+1%mapY)) {
+          y += 1 % mapY;
+          moved = true;
+        }
+    } else if(randNumber >= 50 && randNumber < 75) {
+        if (!isWall(y, x + 1 % mapX) && !checkGhostsColision(x+1%mapX, y)) {
+          x += 1 % mapX;
+          moved = true;
+        }
+    } else {
+        if (!isWall(y, x + 1 % mapX) && !checkGhostsColision(x-1%mapX, y)) {
+          x -= 1 % mapX;
+          moved = true;
+        }
+    }
+  }
+  
+  ghostsPosition[x][y] = 1;
+  ghostsCurrPos[id].first = x;
+  ghostsCurrPos[id].second = y;
+
+  sem_post(&ghostMutex);
+}
+
 void Map::updateGhosts() {
-  std::thread moveGhost1(&Ghost::updatePosition, ghost1);
-  std::thread moveGhost2(&Ghost::updatePosition, ghost2);
+  memset(ghostsPosition, 0, sizeof ghostsPosition);
 
-  std::pair<int, int> ghostPos1 = ghost1->getPosition();
-  std::pair<int, int> ghostPos2 = ghost2->getPosition();
+  std::thread ghost1(&Map::updateGPosition, this, 0);
+  std::thread ghost2(&Map::updateGPosition, this, 1);
+  // std::thread ghost3(&Map::updateGPosition, this, 2);
+  // std::thread ghost4(&Map::updateGPosition, this, 3);
 
-  memset(ghostsPosition, -1, sizeof ghostsPosition);
-  ghostsPosition[ghostPos1.first][ghostPos1.second] = 1;
-  ghostsPosition[ghostPos2.first][ghostPos2.second] = 1;
-
-  moveGhost1.join();
-  moveGhost2.join();
+  ghost1.join();
+  ghost2.join();
+  // ghost3.join();
+  // ghost4.join();
 }
 
 void Map::run() {

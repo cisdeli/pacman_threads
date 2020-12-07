@@ -5,7 +5,7 @@ Game::Game() {}
 
 Game::~Game() {
   delete menu;
-  delete map;
+  // delete map;
 }
 
 // Método de inicialização.

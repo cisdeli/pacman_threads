@@ -50,9 +50,9 @@ private:
   char pacmanCh;
 
   // Ghosts
-  Ghost *ghost1;
-  Ghost *ghost2;
+  std::vector<std::pair<int, int> > ghostsCurrPos;
   int ghostsPosition[66][22];
+  sem_t ghostMutex;
 
   // Points
   int points[66][22];
@@ -63,17 +63,19 @@ public:
   Map(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed);
   ~Map();
 
-  int isWallH(int x, int y);
-  int isWallX(int x, int y);
-  int isWall(int x, int y);
-  int isEmpty(int x, int y);
-  int isDot(int x, int y);
-  int isStar(int x, int y);
-  int isGhost(int x, int y);
+  bool isWallH(int x, int y);
+  bool isWallX(int x, int y);
+  bool isWall(int x, int y);
+  bool isEmpty(int x, int y);
+  bool isDot(int x, int y);
+  bool isStar(int x, int y);
+  bool isGhost(int x, int y);
 
   void generate();
   void configure();
   void updatePacman();
+  bool checkGhostsColision(int x, int y);
+  void updateGPosition(int id);
   void updateGhosts();
   void readUserKey();
   void run();
