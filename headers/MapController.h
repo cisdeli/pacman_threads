@@ -6,19 +6,14 @@
 
 class MapController {
 private:
-  // MapController config
+  // Window config
   WINDOW *gameWin;
-  Map *map;
   int yMax, xMax;
-  int mapX;
-  int mapY;
 
+  // Map config 
+  Map *map;
   unsigned int frameSpeed;
   bool gameRunning;
-
-  void print(int c, int y, int x);
-  void printPac(int c, int y, int x);
-  void showScore();
 
   // Pacman
   Pacman *pacman;
@@ -36,23 +31,28 @@ private:
   int points[66][22];
   int score;
 
+  // Internal methods
+  void print(int c, int y, int x);
+  void printPac(int c, int y, int x);
+  void showScore();
+  void printLine(int i, int j, char c);
+
+  bool checkGhostsColision(int x, int y);
+  bool canMove(int x, int y);
+  void configure();
+  void updatePacman();
+  bool isPacDead();
+  void generate();
+  void showEndGame();
+  void updateGPosition(int id);
+  void updateGhosts();
+
 public:
   MapController();
   MapController(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed);
   ~MapController();
 
-  bool isPacDead();
   bool getGameState();
-
-  void showEndGame();
-
-  void generate();
-  void configure();
-  void updatePacman();
-  bool checkGhostsColision(int x, int y);
-  bool canMove(int x, int y);
-  void updateGPosition(int id);
-  void updateGhosts();
   void readUserKey();
   void run();
 };

@@ -34,7 +34,7 @@ void Game::clearScr() {
 }
 
 void Game::run() {
-  Game::init();
+  init();
 
   menu->drawTitle();
   int op = menu->userOptions();
@@ -50,7 +50,7 @@ void Game::run() {
   }
 
   // Limpa a tela para poder desenhar o mapa.
-  Game::clearScr();
+  clearScr();
 
   // Display dificuldade.
   std::string diff[3] = {"Easy", "Medium", "Hard"};
@@ -59,15 +59,14 @@ void Game::run() {
   wrefresh(gameWin);
 
   // Lógica do jogo aqui.
-  std::thread update_thread(&MapController::run, map);
+  std::thread update_thread(&MapController::run, map);  // Thread principal para ficar renderizando o mapa e atualizando os fantasmas
+  
   while (gameRunning) {
     gameRunning = map->getGameState();
     map->readUserKey();
   }
   update_thread.join();
-  //
 
-  Game::clearScr();
-  Game::run();
-  // getch();
+  clearScr();
+  run();
 }

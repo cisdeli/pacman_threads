@@ -22,4 +22,5 @@ public:
   bool getGameRunning() { return gameRunning; }
   void setGameRunning(bool _gameRunning) { gameRunning = _gameRunning; }
 };
+
 #endif

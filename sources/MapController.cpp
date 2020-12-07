@@ -11,9 +11,6 @@ MapController::MapController(WINDOW *win, int yWin, int xWin, unsigned int _fram
   frameSpeed = _frameSpeed;
 
   map = new Map();
-  mapX = map->getMapX();
-  mapY = map->getMapY();
-
   pacman = new Pacman(3, 1);
   configure();
 }
@@ -57,7 +54,7 @@ void MapController::configure() {
   // Configure pacman
   pacmanCh = '<';
 
-  // Configure points
+  // Configure points in the map
   memset(points, -1, sizeof points);
   points[pacmanX][pacmanY] = 1;
 
@@ -72,43 +69,35 @@ void MapController::configure() {
   ghostsPosition[20][10] = 1;
   ghostsPosition[15][30] = 1;
 
-  // Semaphore config
+  // Configure semaphore
   sem_init(&ghostMutex, 0, 1);  // Binary
 }
 
+void MapController::printLine(int i, int j, char c) {
+  mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)c);
+}
+
 void MapController::generate() {
-  for (int i = 0; i < mapX; i++)
+  int mapX = map->getMapX();
+  int mapY = map->getMapY();
+  for (int i = 0; i < mapX; i++) {
     for (int j = 0; j < mapY; j++) {
-      if (j == pacmanY && i == pacmanX)
+      if (j == pacmanY && i == pacmanX) // Print pacman
         MapController::printPac((int)pacmanCh, j + 8, i + xMax / 3 - 8);
-
-      else if (ghostsPosition[i][j] == 1)
-        mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'$');
-
-      else if (map->isWallH(j, i))
+      else if (ghostsPosition[i][j] == 1) // Print ghost
+        printLine(i, j, '$');
+      else if (map->isWallH(j, i))  // Print obstacle
         MapController::print((int)'#', j + 8, i + xMax / 3 - 8);
-
-      else if (map->isWallX(j, i))
-        mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
-
+      else if (map->isWallX(j, i))  // Print free space(without dot)
+        printLine(i, j, ' ');
       else if (map->isDot(j, i)) {
-        if (points[i][j] == 1)
-          mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
+        if (points[i][j] == 1)  // Print free space(dot was eaten)
+          printLine(i, j, ' ');
         else
-          mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');
-      }
-
-      else if (map->isEmpty(j, i))
-        mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
-
-      // Caso sobre tempo implementar powerup
-      else if (map->isStar(j, i)) {
-        if (points[i][j] == 1)
-          mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
-        else
-          mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');
+          printLine(i, j, '.'); // Print dot
       }
     }
+  }
 }
 
 void MapController::readUserKey() {
@@ -159,23 +148,23 @@ void MapController::updateGPosition(int id) {
   while (!moved) {
     int randNumber = rand() % 100;
     if (randNumber >= 0 && randNumber < 25) { // Move UP
-      if (canMove(x, y - 1 % mapY)) {
-        y -= 1 % mapY;
+      if (canMove(x, y - 1)) {
+        y -= 1;
         moved = true;
       }
     } else if (randNumber >= 25 && randNumber < 50) { // Move DOWN
-      if (canMove(x, y + 1 % mapY)) {
-        y += 1 % mapY;
+      if (canMove(x, y + 1)) {
+        y += 1;
         moved = true;
       }
     } else if (randNumber >= 50 && randNumber < 75) { // Move RIGHT
-      if (canMove(x + 1 % mapX, y)) {
-        x += 1 % mapX;
+      if (canMove(x + 1, y)) {
+        x += 1;
         moved = true;
       }
     } else {  // Move LEFT
-      if (canMove(x - 1 % mapX, y)) {
-        x -= 1 % mapX;
+      if (canMove(x - 1, y)) {
+        x -= 1;
         moved = true;
       }
     }
@@ -214,8 +203,7 @@ void MapController::showEndGame() {
   wattroff(gameWin, A_BOLD);
 
   wattron(gameWin, A_DIM);
-  mvwprintw(gameWin, yMax - 2, xMax / 2 - 21,
-            " Aperte qualquer tecla para voltar ao menu. ");
+  mvwprintw(gameWin, yMax - 2, xMax / 2 - 21, " Aperte qualquer tecla para voltar ao menu. ");
   wattroff(gameWin, A_DIM);
 }
 

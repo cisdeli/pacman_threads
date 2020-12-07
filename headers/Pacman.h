@@ -15,6 +15,7 @@ private:
 public:
   Pacman(int _x, int _y);
   ~Pacman();
+  
   std::pair<int, int> updatePosition(int userKey);
 
   int getPositionX() { return x; }
