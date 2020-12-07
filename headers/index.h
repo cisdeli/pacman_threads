@@ -3,6 +3,7 @@
 #include "Map.h"
 #include "MapController.h"
 #include "Menu.h"
+#include "Pacman.h"
 
 // Aux headers
 #include <chrono>

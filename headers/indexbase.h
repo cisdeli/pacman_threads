@@ -5,5 +5,6 @@ class Game;
 class Map;
 class MapController;
 class Menu;
+class Pacman;
 
 #endif

@@ -9,12 +9,18 @@ MapController::MapController(WINDOW *win, int yWin, int xWin, unsigned int _fram
   yMax = yWin;
   xMax = xWin;
   frameSpeed = _frameSpeed;
-  mapObj = new Map();
+
+  map = new Map();
+  mapX = map->getMapX();
+  mapY = map->getMapY();
+
+  pacman = new Pacman(3, 1);
   configure();
 }
 
 MapController::~MapController() {
-  delete mapObj;
+  delete map;
+  delete pacman;
 }
 
 bool MapController::getGameState() { return gameRunning; }
@@ -49,8 +55,6 @@ void MapController::configure() {
   gameRunning = true;
 
   // Configure pacman
-  pacmanX = 3;
-  pacmanY = 1;
   pacmanCh = '<';
 
   // Configure points
@@ -81,24 +85,24 @@ void MapController::generate() {
       else if (ghostsPosition[i][j] == 1)
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'$');
 
-      else if (mapObj->isWallH(j, i))
+      else if (map->isWallH(j, i))
         MapController::print((int)'#', j + 8, i + xMax / 3 - 8);
 
-      else if (mapObj->isWallX(j, i))
+      else if (map->isWallX(j, i))
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
 
-      else if (mapObj->isDot(j, i)) {
+      else if (map->isDot(j, i)) {
         if (points[i][j] == 1)
           mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
         else
           mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)'.');
       }
 
-      else if (mapObj->isEmpty(j, i))
+      else if (map->isEmpty(j, i))
         mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
 
       // Caso sobre tempo implementar powerup
-      else if (mapObj->isStar(j, i)) {
+      else if (map->isStar(j, i)) {
         if (points[i][j] == 1)
           mvwaddch(gameWin, j + 8, i + xMax / 3 - 8, (int)' ');
         else
@@ -115,44 +119,17 @@ void MapController::readUserKey() {
 bool MapController::isPacDead() { return checkGhostsColision(pacmanX, pacmanY); }
 
 void MapController::updatePacman() {
-  switch (userKey) {
-  case KEY_UP:
-    if (!mapObj->isWall(pacmanY - 1 % mapY, pacmanX)) {
-      pacmanY -= 1 % mapY;
-      if (points[pacmanX][pacmanY] == -1)
-        score++;
-      points[pacmanX][pacmanY] = 1;
-      pacmanCh = 'v';
-    }
-    break;
-  case KEY_DOWN:
-    if (!mapObj->isWall(pacmanY + 1 % mapY, pacmanX)) {
-      pacmanY += 1 % mapY;
-      if (points[pacmanX][pacmanY] == -1)
-        score++;
-      points[pacmanX][pacmanY] = 1;
-      pacmanCh = '^';
-    }
-    break;
-  case KEY_RIGHT:
-    if (!mapObj->isWall(pacmanY, pacmanX + 1 % mapX)) {
-      pacmanX += 1 % mapX;
-      if (points[pacmanX][pacmanY] == -1)
-        score++;
-      points[pacmanX][pacmanY] = 1;
-      pacmanCh = '<';
-    }
-    break;
-  case KEY_LEFT:
-    if (!mapObj->isWall(pacmanY, pacmanX - 1 % mapX)) {
-      pacmanX -= 1 % mapX;
-      if (points[pacmanX][pacmanY] == -1)
-        score++;
-      points[pacmanX][pacmanY] = 1;
-      pacmanCh = '>';
-    }
-    break;
+  std::pair<int, int> pacPosition;
+  pacPosition = pacman->updatePosition(userKey);
+
+  pacmanX = pacPosition.first;
+  pacmanY = pacPosition.second;
+  pacmanCh = pacman->getPacmanCh();
+
+  if (points[pacmanX][pacmanY] == -1) {
+    score++;
   }
+  points[pacmanX][pacmanY] = 1;
 }
 
 bool MapController::checkGhostsColision(int x, int y) {
@@ -178,22 +155,22 @@ void MapController::updateGPosition(int id) {
   while (!moved) {
     int randNumber = rand() % 100;
     if (randNumber >= 0 && randNumber < 25) { // Move UP
-      if (!mapObj->isWall(y - 1 % mapY, x) && !checkGhostsColision(x, y - 1 % mapY)) {
+      if (!map->isWall(y - 1 % mapY, x) && !checkGhostsColision(x, y - 1 % mapY)) {
         y -= 1 % mapY;
         moved = true;
       }
     } else if (randNumber >= 25 && randNumber < 50) { // Move DOWN
-      if (!mapObj->isWall(y + 1 % mapY, x) && !checkGhostsColision(x, y + 1 % mapY)) {
+      if (!map->isWall(y + 1 % mapY, x) && !checkGhostsColision(x, y + 1 % mapY)) {
         y += 1 % mapY;
         moved = true;
       }
     } else if (randNumber >= 50 && randNumber < 75) { // Move RIGHT
-      if (!mapObj->isWall(y, x + 1 % mapX) && !checkGhostsColision(x + 1 % mapX, y)) {
+      if (!map->isWall(y, x + 1 % mapX) && !checkGhostsColision(x + 1 % mapX, y)) {
         x += 1 % mapX;
         moved = true;
       }
     } else {  // Move LEFT
-      if (!mapObj->isWall(y, x - 1 % mapX) && !checkGhostsColision(x - 1 % mapX, y)) {
+      if (!map->isWall(y, x - 1 % mapX) && !checkGhostsColision(x - 1 % mapX, y)) {
         x -= 1 % mapX;
         moved = true;
       }

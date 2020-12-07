@@ -3,8 +3,8 @@ CFLAGS = -Wall -g
 MEMDEBUGSET = -g -fsanitize=address -fstack-protector-strong -Wall -Wextra -Werror
 LDFLAGS = -lncurses -lpthread
 
-all: main.cpp Map.o MapController.o Menu.o Game.o
-	$(CC) $(CFLAGS) main.cpp Map.o MapController.o Menu.o Game.o $(LDFLAGS) -o exec
+all: main.cpp Map.o MapController.o Menu.o Game.o Pacman.o
+	$(CC) $(CFLAGS) main.cpp Map.o MapController.o Menu.o Game.o Pacman.o $(LDFLAGS) -o exec
 Map.o: sources/Map.cpp
 	$(CC) sources/Map.cpp -c
 MapController.o: sources/MapController.cpp
@@ -13,6 +13,9 @@ Menu.o: sources/Menu.cpp
 	$(CC) sources/Menu.cpp -c
 Game.o: sources/Game.cpp
 	$(CC) sources/Game.cpp -c
+Pacman.o: sources/Pacman.cpp
+	$(CC) sources/Pacman.cpp -c
+	
 
 run:
 	 ./exec

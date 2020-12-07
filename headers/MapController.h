@@ -8,25 +8,24 @@ class MapController {
 private:
   // MapController config
   WINDOW *gameWin;
-  Map *mapObj;
+  Map *map;
   int yMax, xMax;
-  int mapX = 66, mapY = 22;
+  int mapX;
+  int mapY;
 
   unsigned int frameSpeed;
   bool gameRunning;
 
-  
-
   void print(int c, int y, int x);
   void printPac(int c, int y, int x);
-
   void showScore();
 
   // Pacman
+  Pacman *pacman;
   int pacmanX;
   int pacmanY;
   int userKey;
-  char pacmanCh;
+  char pacmanCh = '<';
 
   // Ghosts
   std::vector<std::pair<int, int>> ghostsCurrPos;

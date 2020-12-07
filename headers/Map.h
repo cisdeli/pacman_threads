@@ -31,6 +31,9 @@ private:
       "#################################################################"
   };
 
+  int mapX = 66;
+  int mapY = 22;
+
 public:
   Map();
   bool isWallH(int x, int y);
@@ -40,6 +43,9 @@ public:
   bool isDot(int x, int y);
   bool isStar(int x, int y);
   bool isGhost(int x, int y);
+
+  int getMapX() { return mapX; }
+  int getMapY() { return mapY; }
 };
 
 #endif
