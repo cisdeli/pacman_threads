@@ -76,7 +76,7 @@ void Map::configure() {
   ghostsPosition[15][30] = 1;
 
   // Semaphore config
-  sem_init(&ghostMutex, 0, 1);
+  sem_init(&ghostMutex, 0, 1);  // Binary
 }
 
 void Map::generate() {
@@ -119,11 +119,7 @@ void Map::readUserKey() {
     userKey = wgetch(gameWin); // Pega o input do usuario.
 }
 
-bool Map::isPacDead() {
-  // As vezes a colisao n pega.
-  return ghostsPosition[pacmanX][pacmanY];
-  // return checkGhostsColision(pacmanX, pacmanY);
-}
+bool Map::isPacDead() { return checkGhostsColision(pacmanX, pacmanY); }
 
 void Map::updatePacman() {
   switch (userKey) {
@@ -168,8 +164,10 @@ void Map::updatePacman() {
 
 bool Map::checkGhostsColision(int x, int y) {
   for (int i = 0; i < ghostsCurrPos.size(); i++) {
-    if (ghostsCurrPos[i].first == x && ghostsCurrPos[i].second == y) {
+    if (ghostsCurrPos[i].first == x && ghostsCurrPos[i].second == y) {  // Colision to another ghost
       return true;
+    } else if(ghostsCurrPos[i].first == pacmanX && ghostsCurrPos[i].second == pacmanY) {  // Colision with pacman
+      gameRunning = false;
     }
   }
 
@@ -186,22 +184,22 @@ void Map::updateGPosition(int id) {
 
   while (!moved) {
     int randNumber = rand() % 100;
-    if (randNumber >= 0 && randNumber < 25) {
+    if (randNumber >= 0 && randNumber < 25) { // Move UP
       if (!isWall(y - 1 % mapY, x) && !checkGhostsColision(x, y - 1 % mapY)) {
         y -= 1 % mapY;
         moved = true;
       }
-    } else if (randNumber >= 25 && randNumber < 50) {
+    } else if (randNumber >= 25 && randNumber < 50) { // Move DOWN
       if (!isWall(y + 1 % mapY, x) && !checkGhostsColision(x, y + 1 % mapY)) {
         y += 1 % mapY;
         moved = true;
       }
-    } else if (randNumber >= 50 && randNumber < 75) {
+    } else if (randNumber >= 50 && randNumber < 75) { // Move RIGHT
       if (!isWall(y, x + 1 % mapX) && !checkGhostsColision(x + 1 % mapX, y)) {
         x += 1 % mapX;
         moved = true;
       }
-    } else {
+    } else {  // Move LEFT
       if (!isWall(y, x - 1 % mapX) && !checkGhostsColision(x - 1 % mapX, y)) {
         x -= 1 % mapX;
         moved = true;
@@ -224,10 +222,10 @@ void Map::updateGhosts() {
   std::thread ghost3(&Map::updateGPosition, this, 2);
   std::thread ghost4(&Map::updateGPosition, this, 3);
 
-  ghost1.join();
-  ghost2.join();
-  ghost3.join();
-  ghost4.join();
+  ghost1.detach();
+  ghost2.detach();
+  ghost3.detach();
+  ghost4.detach();
 }
 
 void Map::showEndGame() {
@@ -260,6 +258,8 @@ void Map::run() {
     std::this_thread::sleep_for(wait_duration);
     wrefresh(gameWin);
   }
+
+  generate(); // Show the last frame of the map state
   Map::showEndGame();
   wrefresh(gameWin);
 }
