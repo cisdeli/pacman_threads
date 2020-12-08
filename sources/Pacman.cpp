@@ -29,27 +29,62 @@ void Pacman::updatePosition() {
     if (!map->isWall(y - 1 % mapY, x)) {
       y -= 1 % mapY;
       pacmanCh = 'v';
+      prev_dir = dir;
     }
     break;
   case DOWN:
     if (!map->isWall(y + 1 % mapY, x)) {
       y += 1 % mapY;
       pacmanCh = '^';
+      prev_dir = dir;
     }
     break;
   case RIGHT:
     if (!map->isWall(y, x + 1 % mapX)) {
       x += 1 % mapX;
       pacmanCh = '<';
+      prev_dir = dir;
     }
     break;
   case LEFT:
     if (!map->isWall(y, x - 1 % mapX)) {
       x -= 1 % mapX;
       pacmanCh = '>';
+      prev_dir = dir;
     }
     break;
   default:
     pacmanCh = '<';
+  }
+
+  if (dir != prev_dir) {
+    switch (prev_dir) {
+    case UP:
+      if (!map->isWall(y - 1 % mapY, x)) {
+        y -= 1 % mapY;
+        pacmanCh = 'v';
+      }
+      break;
+    case DOWN:
+      if (!map->isWall(y + 1 % mapY, x)) {
+        y += 1 % mapY;
+        pacmanCh = '^';
+      }
+      break;
+    case RIGHT:
+      if (!map->isWall(y, x + 1 % mapX)) {
+        x += 1 % mapX;
+        pacmanCh = '<';
+      }
+      break;
+    case LEFT:
+      if (!map->isWall(y, x - 1 % mapX)) {
+        x -= 1 % mapX;
+        pacmanCh = '>';
+      }
+      break;
+    default:
+      pacmanCh = '<';
+    }
   }
 }
