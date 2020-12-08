@@ -1,8 +1,8 @@
 # Projeto Final - SO
 
 A pacman with threads.  
-Referência https://github.com/j-sokol/ncursesPac  
-Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHMuYlyxQl4v
+Referência <https://github.com/j-sokol/ncursesPac>  
+Tutorial ncurses <https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHMuYlyxQl4v>
 
 ## To do list
 
@@ -15,6 +15,11 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 -   [ ] Manual.
 -   [ ] Video de apresentação.
 
+#### Pacman
+
+-   [ ]  Mudar movimento para usar direção.
+-   [ ]  Usar direção para "salvar" próximo movimento desejado pelo usuário.
+
 #### Mapa
 
 -   [x]  Mapa como matriz char.
@@ -23,7 +28,6 @@ Tutorial ncurses https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtHM
 -   [x]  Cor no pacman e mudar char que o representa.
 -   [x]  Incluir placar de pontos.
 -   [x]  "Limpar" classe Map.
-
 
 #### Menu
 
