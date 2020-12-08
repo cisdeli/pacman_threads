@@ -59,13 +59,17 @@ void Game::run() {
   wrefresh(gameWin);
 
   // Lógica do jogo aqui.
-  std::thread update_thread(&MapController::run, map);  // Thread principal para ficar renderizando o mapa e atualizando os fantasmas
-  
+  std::thread update_thread(&MapController::run,
+                            map); // Thread principal para ficar renderizando o
+                                  // mapa e atualizando os fantasmas
+  int userKey;
   while (gameRunning) {
     gameRunning = map->getGameState();
-    map->readUserKey();
+    userKey = map->readUserKey();
   }
   update_thread.join();
+  while (userKey != 10) // Checa pelo enter para reiniciar para o menu
+    userKey = wgetch(gameWin);
 
   clearScr();
   run();
