@@ -7,7 +7,7 @@
 class Pacman {
 private:
   enum Direction { LEFT, RIGHT, UP, DOWN };
-  Direction dir;
+  Direction dir, prev_dir;
   int x;
   int y;
   char pacmanCh;
