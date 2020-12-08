@@ -6,6 +6,8 @@
 
 class Pacman {
 private:
+  enum Direction { LEFT, RIGHT, UP, DOWN };
+  Direction dir;
   int x;
   int y;
   char pacmanCh;
@@ -15,8 +17,9 @@ private:
 public:
   Pacman(int _x, int _y);
   ~Pacman();
-  
-  std::pair<int, int> updatePosition(int userKey);
+
+  void updatePosition();
+  void move(int userKey);
 
   int getPositionX() { return x; }
   int getPositionY() { return y; }
