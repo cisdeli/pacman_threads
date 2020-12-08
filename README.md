@@ -18,7 +18,7 @@ Tutorial ncurses <https://www.youtube.com/playlist?list=PL2U2TQ__OrQ8jTf0_noNKtH
 #### Pacman
 
 -   [x]  Mudar movimento para usar direção.
--   [ ]  Usar direção para "salvar" próximo movimento desejado pelo usuário.
+-   [x]  Usar direção para "salvar" próximo movimento desejado pelo usuário.
 
 #### Mapa
 
