@@ -112,11 +112,10 @@ bool MapController::isPacDead() {
 }
 
 void MapController::updatePacman() {
-  std::pair<int, int> pacPosition;
-  pacPosition = pacman->updatePosition(userKey);
-
-  pacmanX = pacPosition.first;
-  pacmanY = pacPosition.second;
+  pacman->move(userKey);
+  pacman->updatePosition();
+  pacmanX = pacman->getPositionX();
+  pacmanY = pacman->getPositionY();
   pacmanCh = pacman->getPacmanCh();
 
   if (points[pacmanX][pacmanY] == -1) {

@@ -3,38 +3,47 @@
 
 Pacman::Pacman(int _x, int _y) {
   x = _x;
-  y = _y; 
-
+  y = _y;
+  dir = RIGHT;
   map = new Map();
 };
 
-Pacman::~Pacman() {
-  delete map;
+Pacman::~Pacman() { delete map; }
+
+void Pacman::move(int userKey) {
+  if (userKey == KEY_UP)
+    dir = UP;
+  if (userKey == KEY_DOWN)
+    dir = DOWN;
+  if (userKey == KEY_RIGHT)
+    dir = RIGHT;
+  if (userKey == KEY_LEFT)
+    dir = LEFT;
 }
 
-std::pair<int, int> Pacman::updatePosition(int userKey) {
+void Pacman::updatePosition() {
   int mapX = map->getMapX();
   int mapY = map->getMapY();
-  switch (userKey) {
-  case KEY_UP:
+  switch (dir) {
+  case UP:
     if (!map->isWall(y - 1 % mapY, x)) {
       y -= 1 % mapY;
       pacmanCh = 'v';
     }
     break;
-  case KEY_DOWN:
+  case DOWN:
     if (!map->isWall(y + 1 % mapY, x)) {
       y += 1 % mapY;
       pacmanCh = '^';
     }
     break;
-  case KEY_RIGHT:
+  case RIGHT:
     if (!map->isWall(y, x + 1 % mapX)) {
       x += 1 % mapX;
       pacmanCh = '<';
     }
     break;
-  case KEY_LEFT:
+  case LEFT:
     if (!map->isWall(y, x - 1 % mapX)) {
       x -= 1 % mapX;
       pacmanCh = '>';
@@ -43,6 +52,4 @@ std::pair<int, int> Pacman::updatePosition(int userKey) {
   default:
     pacmanCh = '<';
   }
-
-  return {x, y};
 }
