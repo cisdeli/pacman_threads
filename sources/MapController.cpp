@@ -27,6 +27,11 @@ void MapController::print(int c, int y, int x, int cpair) {
   start_color();
   init_pair(1, COLOR_GREEN, COLOR_GREEN);
   init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(3, COLOR_BLUE, COLOR_BLACK);
+  init_pair(4, COLOR_CYAN, COLOR_BLACK);
+  init_pair(5, COLOR_RED, COLOR_BLACK);
+  init_pair(6, COLOR_MAGENTA, COLOR_BLACK);
+
   wattron(gameWin, A_BOLD);
   wattron(gameWin, COLOR_PAIR(cpair));
   mvwaddch(gameWin, y, x, c);
@@ -77,7 +82,11 @@ void MapController::generate() {
       if (j == pacmanY && i == pacmanX) // Print pacman
         MapController::print((int)pacmanCh, j + 8, i + xMax / 3 - 8, 2);
       else if (ghostsPosition[i][j] == 1) // Print ghost
-        printLine(i, j, '$');
+        for (int k = 0; k < ghostsCurrPos.size(); k++) {
+          if (ghostsCurrPos[k].first == i && ghostsCurrPos[k].second == j)
+            MapController::print((int)'$', j + 8, i + xMax / 3 - 8, k + 3);
+          // printLine(i, j, '$');
+        }
       else if (map->isWallH(j, i)) // Print obstacle
         MapController::print((int)'#', j + 8, i + xMax / 3 - 8, 1);
       else if (map->isWallX(j, i)) // Print free space(without dot)
