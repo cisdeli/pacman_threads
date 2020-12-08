@@ -54,7 +54,7 @@ void Game::run() {
 
   // Display dificuldade.
   std::string diff[3] = {"Easy", "Medium", "Hard"};
-  mvwprintw(gameWin, 0, xMax / 2 - 25, "Dificuldade:{%s}",
+  mvwprintw(gameWin, 0, xMax / 2 - 25, "{Dificuldade: %s}",
             diff[difficulty].c_str());
   wrefresh(gameWin);
 

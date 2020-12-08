@@ -40,7 +40,7 @@ void MapController::print(int c, int y, int x, int cpair) {
 }
 
 void MapController::showScore() {
-  mvwprintw(gameWin, 0, xMax / 2 + 10, "Score:{%d}", score);
+  mvwprintw(gameWin, 0, xMax / 2 + 10, "{Score: %d}", score);
 }
 
 void MapController::configure() {
