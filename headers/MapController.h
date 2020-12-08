@@ -10,7 +10,7 @@ private:
   WINDOW *gameWin;
   int yMax, xMax;
 
-  // Map config 
+  // Map config
   Map *map;
   unsigned int frameSpeed;
   bool gameRunning;
@@ -32,8 +32,7 @@ private:
   int score;
 
   // Internal methods
-  void print(int c, int y, int x);
-  void printPac(int c, int y, int x);
+  void print(int c, int y, int x, int cpair);
   void showScore();
   void printLine(int i, int j, char c);
 
@@ -53,7 +52,7 @@ public:
   ~MapController();
 
   bool getGameState();
-  void readUserKey();
+  int readUserKey();
   void run();
 };
 

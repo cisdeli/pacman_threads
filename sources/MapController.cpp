@@ -3,7 +3,8 @@
 
 MapController::MapController() {}
 
-MapController::MapController(WINDOW *win, int yWin, int xWin, unsigned int _frameSpeed) {
+MapController::MapController(WINDOW *win, int yWin, int xWin,
+                             unsigned int _frameSpeed) {
   // Passa as dimensões e a janela para desenhar nela.
   gameWin = win;
   yMax = yWin;
@@ -22,23 +23,14 @@ MapController::~MapController() {
 
 bool MapController::getGameState() { return gameRunning; }
 
-void MapController::print(int c, int y, int x) {
+void MapController::print(int c, int y, int x, int cpair) {
   start_color();
   init_pair(1, COLOR_GREEN, COLOR_GREEN);
-  wattron(gameWin, A_BOLD);
-  wattron(gameWin, COLOR_PAIR(1));
-  mvwaddch(gameWin, y, x, c);
-  wattroff(gameWin, COLOR_PAIR(1));
-  wattroff(gameWin, A_BOLD);
-}
-
-void MapController::printPac(int c, int y, int x) {
-  start_color();
   init_pair(2, COLOR_YELLOW, COLOR_BLACK);
   wattron(gameWin, A_BOLD);
-  wattron(gameWin, COLOR_PAIR(2));
+  wattron(gameWin, COLOR_PAIR(cpair));
   mvwaddch(gameWin, y, x, c);
-  wattroff(gameWin, COLOR_PAIR(2));
+  wattroff(gameWin, COLOR_PAIR(cpair));
   wattroff(gameWin, A_BOLD);
 }
 
@@ -70,7 +62,7 @@ void MapController::configure() {
   ghostsPosition[15][30] = 1;
 
   // Configure semaphore
-  sem_init(&ghostMutex, 0, 1);  // Binary
+  sem_init(&ghostMutex, 0, 1); // Binary
 }
 
 void MapController::printLine(int i, int j, char c) {
@@ -83,15 +75,15 @@ void MapController::generate() {
   for (int i = 0; i < mapX; i++) {
     for (int j = 0; j < mapY; j++) {
       if (j == pacmanY && i == pacmanX) // Print pacman
-        MapController::printPac((int)pacmanCh, j + 8, i + xMax / 3 - 8);
+        MapController::print((int)pacmanCh, j + 8, i + xMax / 3 - 8, 2);
       else if (ghostsPosition[i][j] == 1) // Print ghost
         printLine(i, j, '$');
-      else if (map->isWallH(j, i))  // Print obstacle
-        MapController::print((int)'#', j + 8, i + xMax / 3 - 8);
-      else if (map->isWallX(j, i))  // Print free space(without dot)
+      else if (map->isWallH(j, i)) // Print obstacle
+        MapController::print((int)'#', j + 8, i + xMax / 3 - 8, 1);
+      else if (map->isWallX(j, i)) // Print free space(without dot)
         printLine(i, j, ' ');
       else if (map->isDot(j, i)) {
-        if (points[i][j] == 1)  // Print free space(dot was eaten)
+        if (points[i][j] == 1) // Print free space(dot was eaten)
           printLine(i, j, ' ');
         else
           printLine(i, j, '.'); // Print dot
@@ -100,12 +92,15 @@ void MapController::generate() {
   }
 }
 
-void MapController::readUserKey() {
+int MapController::readUserKey() {
   if (gameRunning)
     userKey = wgetch(gameWin); // Pega o input do usuario.
+  return userKey;
 }
 
-bool MapController::isPacDead() { return checkGhostsColision(pacmanX, pacmanY); }
+bool MapController::isPacDead() {
+  return checkGhostsColision(pacmanX, pacmanY);
+}
 
 void MapController::updatePacman() {
   std::pair<int, int> pacPosition;
@@ -123,9 +118,11 @@ void MapController::updatePacman() {
 
 bool MapController::checkGhostsColision(int x, int y) {
   for (int i = 0; i < ghostsCurrPos.size(); i++) {
-    if (ghostsCurrPos[i].first == x && ghostsCurrPos[i].second == y) {  // Colision with another ghost
+    if (ghostsCurrPos[i].first == x &&
+        ghostsCurrPos[i].second == y) { // Colision with another ghost
       return true;
-    } else if(ghostsCurrPos[i].first == pacmanX && ghostsCurrPos[i].second == pacmanY) {  // Colision with pacman
+    } else if (ghostsCurrPos[i].first == pacmanX &&
+               ghostsCurrPos[i].second == pacmanY) { // Colision with pacman
       gameRunning = false;
     }
   }
@@ -162,7 +159,7 @@ void MapController::updateGPosition(int id) {
         x += 1;
         moved = true;
       }
-    } else {  // Move LEFT
+    } else { // Move LEFT
       if (canMove(x - 1, y)) {
         x -= 1;
         moved = true;
@@ -203,7 +200,8 @@ void MapController::showEndGame() {
   wattroff(gameWin, A_BOLD);
 
   wattron(gameWin, A_DIM);
-  mvwprintw(gameWin, yMax - 2, xMax / 2 - 21, " Aperte qualquer tecla para voltar ao menu. ");
+  mvwprintw(gameWin, yMax - 2, xMax / 2 - 20,
+            " Aperte a tecla ENTER para voltar ao menu. ");
   wattroff(gameWin, A_DIM);
 }
 
