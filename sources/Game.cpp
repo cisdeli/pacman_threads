@@ -38,12 +38,11 @@ void Game::run() {
 
   menu->drawTitle();
   int op = menu->userOptions();
-  int difficulty = 0; // Dificuldate padrao: facil;
   while (!gameRunning) {
     if (op == 2)
       return; // Usuário selecionou quit.
     else if (op == 1) {
-      difficulty = menu->drawDiff(); // Usuário selecionou Difficulty.
+      menu->drawHelp(); // Usuário selecionou Difficulty.
       op = menu->userOptions();
     } else if (op == 0)
       gameRunning = true; // Usuário selecionou Play.
@@ -51,11 +50,6 @@ void Game::run() {
 
   // Limpa a tela para poder desenhar o mapa.
   clearScr();
-
-  // Display dificuldade.
-  std::string diff[3] = {"Easy", "Medium", "Hard"};
-  mvwprintw(gameWin, 0, xMax / 2 - 25, "{Dificuldade: %s}",
-            diff[difficulty].c_str());
   wrefresh(gameWin);
 
   // Lógica do jogo aqui.

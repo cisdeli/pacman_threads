@@ -13,6 +13,6 @@ public:
   Menu(WINDOW *win, int yWin, int xWin);
   void drawTitle();
   int userOptions();
-  int drawDiff();
+  void drawHelp();
 };
 #endif

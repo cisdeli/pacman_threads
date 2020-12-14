@@ -42,7 +42,7 @@ void Menu::drawTitle() {
 }
 
 int Menu::userOptions() {
-  std::string choices[3] = {"Play", "Difficulty", "Quit"};
+  std::string choices[3] = {"Play", "Help", "Quit"};
   int choice, selected = 0;
   // Menu
   while (1) {
@@ -80,44 +80,26 @@ int Menu::userOptions() {
   return selected; // 0 = Play, 1 = Difficulty, 2 = quit;
 }
 
-int Menu::drawDiff() {
+void Menu::drawHelp() {
   // Apaga as opcoes iniciais e mantem o titulo.
   werase(gameWin);
   box(gameWin, 0, 0);
   Menu::drawTitle();
   //
 
-  // Mesma lógica da classe drawTitle();.
-  std::string choices[3] = {"Easy", "Medium", "Hard"};
-  int choice, selected = 0;
-  while (1) {
-    for (int i = 0; i < 3; i++) {
-      if (i == selected)
-        wattron(gameWin, A_REVERSE);
-      mvwprintw(gameWin, i + 23, (xMax / 3 + 25) - choices[i].length() / 2,
-                choices[i].c_str());
-      wattroff(gameWin, A_REVERSE);
-    }
-    choice = wgetch(gameWin);
+  mvwprintw(gameWin, yMax / 2 - 1, xMax / 2 - 28,
+            "Vence o jogo quando se coleta todos pontos ");
+  mvwprintw(gameWin, yMax / 2, xMax / 2 - 30,
+            "O pacman se movimenta pelas setas do teclado!");
 
-    switch (choice) {
-    case KEY_UP:
-      selected--;
-      if (selected == -1)
-        selected = 0;
-      break;
-    case KEY_DOWN:
-      selected++;
-      if (selected == 3)
-        selected = 2;
-      break;
-    default:
-      break;
-    }
-
-    if (choice == 10) // Check enter key
-      break;
-  }
-  // printw("Choice: %s", choices[selected].c_str());
-  return selected; // 0 = easy, 1 = medium, 2 = hard;
+  std::string teclas[4] = {"^ - Cima", "v - Baixo", "> - Direita",
+                           "< - Esquerda"};
+  mvwprintw(gameWin, yMax / 2 + 1, (xMax / 3 + 25) - teclas[0].length() / 2,
+            teclas[0].c_str());
+  mvwprintw(gameWin, yMax / 2 + 2, (xMax / 3 + 25) - teclas[1].length() / 2,
+            teclas[1].c_str());
+  mvwprintw(gameWin, yMax / 2 + 3, (xMax / 3 + 25) - teclas[2].length() / 2,
+            teclas[2].c_str());
+  mvwprintw(gameWin, yMax / 2 + 4, (xMax / 3 + 25) - teclas[3].length() / 2,
+            teclas[3].c_str());
 }
