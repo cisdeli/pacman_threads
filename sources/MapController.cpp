@@ -40,7 +40,7 @@ void MapController::print(int c, int y, int x, int cpair) {
 }
 
 void MapController::showScore() {
-  mvwprintw(gameWin, 0, xMax / 2 + 10, "{Score: %d}", score);
+  mvwprintw(gameWin, 0, xMax / 2 - 5, "{Score: %d}", score);
 }
 
 void MapController::configure() {
@@ -81,7 +81,6 @@ void MapController::generate() {
         for (int k = 0; k < ghostsCurrPos.size(); k++) {
           if (ghostsCurrPos[k].first == i && ghostsCurrPos[k].second == j)
             MapController::print((int)'$', j + 8, i + xMax / 3 - 8, k + 3);
-          // printLine(i, j, '$');
         }
       else if (map->isWallH(j, i)) // Print obstacle
         MapController::print((int)'#', j + 8, i + xMax / 3 - 8, 1);
@@ -139,7 +138,7 @@ bool MapController::canMove(int x, int y) {
 }
 
 void MapController::updateGPosition(int id) {
-  
+
 
   int x = ghostsCurrPos[id].first;
   int y = ghostsCurrPos[id].second;

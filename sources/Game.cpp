@@ -42,7 +42,7 @@ void Game::run() {
     if (op == 2)
       return; // Usuário selecionou quit.
     else if (op == 1) {
-      menu->drawHelp(); // Usuário selecionou Difficulty.
+      menu->drawHelp(); // Usuário selecionou Help.
       op = menu->userOptions();
     } else if (op == 0)
       gameRunning = true; // Usuário selecionou Play.
