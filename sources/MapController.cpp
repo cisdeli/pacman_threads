@@ -61,10 +61,6 @@ void MapController::configure() {
   ghostsCurrPos.push_back({61, 3});
   ghostsCurrPos.push_back({10, 20});
   ghostsCurrPos.push_back({30, 15});
-  ghostsPosition[4][10] = 1;
-  ghostsPosition[3][61] = 1;
-  ghostsPosition[20][10] = 1;
-  ghostsPosition[15][30] = 1;
 
   // Configure semaphore
   sem_init(&ghostMutex, 0, 1); // Binary
@@ -143,7 +139,7 @@ bool MapController::canMove(int x, int y) {
 }
 
 void MapController::updateGPosition(int id) {
-  sem_wait(&ghostMutex);
+  
 
   int x = ghostsCurrPos[id].first;
   int y = ghostsCurrPos[id].second;
@@ -167,13 +163,15 @@ void MapController::updateGPosition(int id) {
         x += 1;
         moved = true;
       }
-    } else { // Move LEFT
+    } else {                         // Move LEFT
       if (canMove(x - 1, y)) {
         x -= 1;
         moved = true;
       }
     }
   }
+
+  sem_wait(&ghostMutex);
 
   ghostsPosition[x][y] = 1;
   ghostsCurrPos[id].first = x;
