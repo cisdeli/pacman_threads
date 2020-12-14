@@ -87,19 +87,21 @@ void Menu::drawHelp() {
   Menu::drawTitle();
   //
 
-  mvwprintw(gameWin, yMax / 2 - 1, xMax / 2 - 28,
+  mvwprintw(gameWin, yMax - 8, xMax / 2 - 9,
+            "Evite os fantasmas ($)!");
+  mvwprintw(gameWin, yMax - 7, xMax / 2 - 19,
             "Vence o jogo quando se coleta todos pontos ");
-  mvwprintw(gameWin, yMax / 2, xMax / 2 - 30,
+  mvwprintw(gameWin, yMax - 6, xMax / 2 - 20,
             "O pacman se movimenta pelas setas do teclado!");
 
   std::string teclas[4] = {"^ - Cima", "v - Baixo", "> - Direita",
                            "< - Esquerda"};
-  mvwprintw(gameWin, yMax / 2 + 1, (xMax / 3 + 25) - teclas[0].length() / 2,
+  mvwprintw(gameWin, yMax - 5, (xMax / 3 + 25) - teclas[0].length() / 2,
             teclas[0].c_str());
-  mvwprintw(gameWin, yMax / 2 + 2, (xMax / 3 + 25) - teclas[1].length() / 2,
+  mvwprintw(gameWin, yMax - 4, (xMax / 3 + 25) - teclas[1].length() / 2,
             teclas[1].c_str());
-  mvwprintw(gameWin, yMax / 2 + 3, (xMax / 3 + 25) - teclas[2].length() / 2,
+  mvwprintw(gameWin, yMax - 3, (xMax / 3 + 25) - teclas[2].length() / 2,
             teclas[2].c_str());
-  mvwprintw(gameWin, yMax / 2 + 4, (xMax / 3 + 25) - teclas[3].length() / 2,
+  mvwprintw(gameWin, yMax - 2, (xMax / 3 + 26) - teclas[3].length() / 2,
             teclas[3].c_str());
 }
