@@ -27,6 +27,7 @@ void Game::init() {
   wrefresh(gameWin);
 }
 
+// Método para limpar a tela e redesenhar a caixa.
 void Game::clearScr() {
   werase(gameWin);
   box(gameWin, 0, 0);

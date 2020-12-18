@@ -75,9 +75,8 @@ int Menu::userOptions() {
       break;
   }
 
-  // printw("Choice: %s", choices[selected].c_str());
   // Retorna a opcao do usuario para ser tradada na classe game.
-  return selected; // 0 = Play, 1 = Difficulty, 2 = quit;
+  return selected; // 0 = Play, 1 = Help, 2 = quit;
 }
 
 void Menu::drawHelp() {

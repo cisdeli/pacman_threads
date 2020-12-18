@@ -25,8 +25,9 @@ bool MapController::getGameState() { return gameRunning; }
 
 void MapController::print(int c, int y, int x, int cpair) {
   start_color();
-  init_pair(1, COLOR_GREEN, COLOR_GREEN);
-  init_pair(2, COLOR_YELLOW, COLOR_BLACK);
+  init_pair(1, COLOR_GREEN, COLOR_GREEN);  // Barreira
+  init_pair(2, COLOR_YELLOW, COLOR_BLACK); // Pacman
+  // Fantasmas
   init_pair(3, COLOR_BLUE, COLOR_BLACK);
   init_pair(4, COLOR_CYAN, COLOR_BLACK);
   init_pair(5, COLOR_RED, COLOR_BLACK);
@@ -112,7 +113,7 @@ void MapController::updatePacman() {
   pacmanX = pacman->getPositionX();
   pacmanY = pacman->getPositionY();
   pacmanCh = pacman->getPacmanCh();
-
+  // Atualiza matriz de pontos.
   if (points[pacmanX][pacmanY] == -1) {
     score++;
   }
@@ -139,7 +140,6 @@ bool MapController::canMove(int x, int y) {
 
 void MapController::updateGPosition(int id) {
 
-
   int x = ghostsCurrPos[id].first;
   int y = ghostsCurrPos[id].second;
 
@@ -162,14 +162,17 @@ void MapController::updateGPosition(int id) {
         x += 1;
         moved = true;
       }
-    } else {                         // Move LEFT
+    } else { // Move LEFT
       if (canMove(x - 1, y)) {
         x -= 1;
         moved = true;
       }
     }
   }
-
+  /*
+    Uso do semáforo para impedir que os fantasmas
+    atualizem a posição ao mesmo tempo.
+  */
   sem_wait(&ghostMutex);
 
   ghostsPosition[x][y] = 1;
@@ -182,6 +185,7 @@ void MapController::updateGPosition(int id) {
 void MapController::updateGhosts() {
   memset(ghostsPosition, 0, sizeof ghostsPosition);
 
+  // Threads de cada fantasma.
   std::thread ghost1(&MapController::updateGPosition, this, 0);
   std::thread ghost2(&MapController::updateGPosition, this, 1);
   std::thread ghost3(&MapController::updateGPosition, this, 2);

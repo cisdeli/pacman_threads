@@ -2,7 +2,7 @@
 
 int main(void) {
   Game *game = new Game(); // Classe principal.
-  game->run();
+  game->run();             // Método principal do jogo
 
   endwin(); // Finaliza a janela
   delete game;

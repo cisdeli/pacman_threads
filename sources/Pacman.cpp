@@ -57,6 +57,7 @@ void Pacman::updatePosition() {
     pacmanCh = '<';
   }
 
+  // Parte do código a respeito do 'save' de futura direção.
   if (dir != prev_dir) {
     switch (prev_dir) {
     case UP:
